@@ -986,6 +986,10 @@ public class EasyPhotosActivity extends AppCompatActivity implements AlbumItemsA
                 scaleShow.setDuration(200);
                 tvDone.startAnimation(scaleShow);
             }
+            if(Setting.count == 1){
+                resultFast();
+                return;
+            }
             tvDone.setVisibility(View.VISIBLE);
             tvPreview.setVisibility(View.VISIBLE);
         }
@@ -1001,8 +1005,6 @@ public class EasyPhotosActivity extends AppCompatActivity implements AlbumItemsA
                             Setting.complexVideoCount));
                     return;
                 }
-                tvDone.setText(getString(R.string.selector_action_done_easy_photos, Result.count(),
-                        Setting.complexPictureCount));
                 return;
             }
         }

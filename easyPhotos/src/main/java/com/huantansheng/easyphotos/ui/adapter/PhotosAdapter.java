@@ -1,6 +1,7 @@
 package com.huantansheng.easyphotos.ui.adapter;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -103,6 +104,10 @@ public class PhotosAdapter extends RecyclerView.Adapter {
             ((PhotoViewHolder) holder).ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (isSingle) {
+                        singleSelector(item, p);
+                        return;
+                    }
                     int realPosition = p;
                     if (Setting.hasPhotosAd()) {
                         realPosition--;
@@ -159,6 +164,10 @@ public class PhotosAdapter extends RecyclerView.Adapter {
                     listener.onSelectorChanged();
                 }
             });
+            if (isSingle) {
+                ((PhotoViewHolder) holder).vSelector.setVisibility(View.INVISIBLE);
+                ((PhotoViewHolder) holder).tvSelector.setVisibility(View.INVISIBLE);
+            }
             return;
         }
 
