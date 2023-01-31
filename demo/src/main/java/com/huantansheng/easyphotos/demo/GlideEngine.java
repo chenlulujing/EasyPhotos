@@ -9,8 +9,9 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.engine.ImageEngine;
+import com.huantansheng.easyphotos.glide.GlideRoundImage;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+//import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Glide4.x的加载图片引擎实现,单例模式
@@ -46,7 +47,11 @@ public class GlideEngine implements ImageEngine {
     //安卓10推荐uri，并且path的方式不再可用
     @Override
     public void loadPhoto(@NonNull Context context, @NonNull Uri uri, @NonNull ImageView imageView) {
-        Glide.with(context).load(uri).transition(withCrossFade()).into(imageView);
+//        imageView.setImageURI(uri);
+//        Glide.with(context).load(uri).transform(new GlideRoundImage(context,10)).thumbnail(0.2f).into(imageView);
+        Glide.with(context).load(uri).thumbnail(0.2f).into(imageView);
+
+
     }
 
     /**
@@ -61,7 +66,6 @@ public class GlideEngine implements ImageEngine {
     //安卓10推荐uri，并且path的方式不再可用
     @Override
     public void loadGifAsBitmap(@NonNull Context context, @NonNull Uri gifUri, @NonNull ImageView imageView) {
-        Glide.with(context).asBitmap().load(gifUri).into(imageView);
     }
 
     /**
@@ -76,7 +80,6 @@ public class GlideEngine implements ImageEngine {
     //安卓10推荐uri，并且path的方式不再可用
     @Override
     public void loadGif(@NonNull Context context, @NonNull Uri gifUri, @NonNull ImageView imageView) {
-        Glide.with(context).asGif().load(gifUri).transition(withCrossFade()).into(imageView);
     }
 
 
@@ -93,7 +96,7 @@ public class GlideEngine implements ImageEngine {
     //安卓10推荐uri，并且path的方式不再可用
     @Override
     public Bitmap getCacheBitmap(@NonNull Context context, @NonNull Uri uri, int width, int height) throws Exception {
-        return Glide.with(context).asBitmap().load(uri).submit(width, height).get();
+        return null;
     }
 
 

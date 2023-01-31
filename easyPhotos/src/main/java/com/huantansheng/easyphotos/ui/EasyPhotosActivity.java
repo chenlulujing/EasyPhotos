@@ -49,6 +49,7 @@ import com.huantansheng.easyphotos.R;
 import com.huantansheng.easyphotos.constant.Code;
 import com.huantansheng.easyphotos.constant.Key;
 import com.huantansheng.easyphotos.constant.Type;
+import com.huantansheng.easyphotos.glide.GridSpaceItemDecoration;
 import com.huantansheng.easyphotos.models.ad.AdListener;
 import com.huantansheng.easyphotos.models.album.AlbumModel;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
@@ -774,6 +775,7 @@ public class EasyPhotosActivity extends AppCompatActivity implements AlbumItemsA
         albumItemsAdapter = new AlbumItemsAdapter(this, albumItemList, 0, this);
         rvAlbumItems.setLayoutManager(new LinearLayoutManager(this));
         rvAlbumItems.setAdapter(albumItemsAdapter);
+        rvPhotos.addItemDecoration(new GridSpaceItemDecoration(3,20,true));
     }
 
     @Override

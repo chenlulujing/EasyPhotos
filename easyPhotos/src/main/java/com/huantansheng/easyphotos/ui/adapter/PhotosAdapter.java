@@ -303,7 +303,7 @@ public class PhotosAdapter extends RecyclerView.Adapter {
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
-        final PressedImageView ivPhoto;
+        final ImageView ivPhoto;
         final TextView tvSelector;
         final View vSelector;
         final TextView tvType;
