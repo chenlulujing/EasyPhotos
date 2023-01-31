@@ -104,8 +104,8 @@ public class PhotosAdapter extends RecyclerView.Adapter {
             ((PhotoViewHolder) holder).ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isSingle) {
-                        singleSelector(item, p);
+                    if (Setting.isDirectResult) {
+                        selectorClick(item, p, holder);
                         return;
                     }
                     int realPosition = p;
@@ -123,50 +123,14 @@ public class PhotosAdapter extends RecyclerView.Adapter {
             ((PhotoViewHolder) holder).vSelector.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (isSingle) {
-                        singleSelector(item, p);
-                        return;
-                    }
-                    if (unable) {
-                        if (item.selected) {
-                            Result.removePhoto(item);
-                            if (unable) {
-                                unable = false;
-                            }
-                            listener.onSelectorChanged();
-                            notifyDataSetChanged();
-                            return;
-                        }
-                        listener.onSelectorOutOfMax(null);
-                        return;
-                    }
-                    item.selected = !item.selected;
-                    if (item.selected) {
-                        int res = Result.addPhoto(item);
-                        if (res != 0) {
-                            listener.onSelectorOutOfMax(res);
-                            item.selected = false;
-                            return;
-                        }
-                        ((PhotoViewHolder) holder).tvSelector.setBackgroundResource(R.drawable.bg_select_true_easy_photos);
-                        ((PhotoViewHolder) holder).tvSelector.setText(String.valueOf(Result.count()));
-                        if (Result.count() == Setting.count) {
-                            unable = true;
-                            notifyDataSetChanged();
-                        }
-                    } else {
-                        Result.removePhoto(item);
-                        if (unable) {
-                            unable = false;
-                        }
-                        notifyDataSetChanged();
-                    }
-                    listener.onSelectorChanged();
+                    selectorClick(item, p, holder);
                 }
             });
             if (isSingle) {
-                ((PhotoViewHolder) holder).vSelector.setVisibility(View.INVISIBLE);
-                ((PhotoViewHolder) holder).tvSelector.setVisibility(View.INVISIBLE);
+                if (Setting.isDirectResult) {
+                    ((PhotoViewHolder) holder).vSelector.setVisibility(View.INVISIBLE);
+                    ((PhotoViewHolder) holder).tvSelector.setVisibility(View.INVISIBLE);
+                }
             }
             return;
         }
@@ -207,6 +171,48 @@ public class PhotosAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    private void selectorClick(final Photo item, final int p, final RecyclerView.ViewHolder holder) {
+        if (isSingle) {
+            singleSelector(item, p);
+            return;
+        }
+        if (unable) {
+            if (item.selected) {
+                Result.removePhoto(item);
+                if (unable) {
+                    unable = false;
+                }
+                listener.onSelectorChanged();
+                notifyDataSetChanged();
+                return;
+            }
+            listener.onSelectorOutOfMax(null);
+            return;
+        }
+        item.selected = !item.selected;
+        if (item.selected) {
+            int res = Result.addPhoto(item);
+            if (res != 0) {
+                listener.onSelectorOutOfMax(res);
+                item.selected = false;
+                return;
+            }
+            ((PhotoViewHolder) holder).tvSelector.setBackgroundResource(R.drawable.bg_select_true_easy_photos);
+            ((PhotoViewHolder) holder).tvSelector.setText(String.valueOf(Result.count()));
+            if (Result.count() == Setting.count) {
+                unable = true;
+                notifyDataSetChanged();
+            }
+        } else {
+            Result.removePhoto(item);
+            if (unable) {
+                unable = false;
+            }
+            notifyDataSetChanged();
+        }
+        listener.onSelectorChanged();
     }
 
     public void clearAd() {

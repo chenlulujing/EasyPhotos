@@ -6,6 +6,7 @@ import android.view.View;
 import com.huantansheng.easyphotos.constant.Type;
 import com.huantansheng.easyphotos.engine.ImageEngine;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
+import com.huantansheng.easyphotos.result.Result;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -24,6 +25,8 @@ public class Setting {
     public static long minSize = 1;
     public static int count = 1;
 
+    //相册选择完之后是否直接返回
+    public static boolean isDirectResult  = true;
     public static WeakReference<View> photosAdView = null;
     public static WeakReference<View> albumItemsAdView = null;
     public static boolean photoAdIsOk = false;
@@ -119,5 +122,13 @@ public class Setting {
 
     public static boolean isBottomRightCamera() {
         return cameraLocation == BOTTOM_RIGHT;
+    }
+
+    /**
+     * 照片选够了
+     * @return
+     */
+    public static boolean isEnough(){
+       return Setting.count == Result.count();
     }
 }

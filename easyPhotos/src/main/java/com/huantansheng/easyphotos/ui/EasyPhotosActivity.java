@@ -981,14 +981,16 @@ public class EasyPhotosActivity extends AppCompatActivity implements AlbumItemsA
             tvDone.setVisibility(View.INVISIBLE);
             tvPreview.setVisibility(View.INVISIBLE);
         } else {
+            if (Setting.isEnough()) {
+                if (Setting.isDirectResult) {
+                    resultFast();
+                }
+                return;
+            }
             if (View.INVISIBLE == tvDone.getVisibility()) {
                 ScaleAnimation scaleShow = new ScaleAnimation(0f, 1f, 0f, 1f);
                 scaleShow.setDuration(200);
                 tvDone.startAnimation(scaleShow);
-            }
-            if(Setting.count == 1){
-                resultFast();
-                return;
             }
             tvDone.setVisibility(View.VISIBLE);
             tvPreview.setVisibility(View.VISIBLE);
